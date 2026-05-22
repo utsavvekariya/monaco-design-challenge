@@ -1,5 +1,3 @@
-import { DeviceMobile, Monitor } from '@phosphor-icons/react';
-
 import { useNotesApp } from '@/context/NotesAppContext';
 import type { AppView } from '@/types/notes';
 
@@ -14,8 +12,6 @@ export function DemoToolbar() {
   const {
     view,
     setView,
-    presentationMode,
-    setPresentationMode,
     closeAiPanel,
     expandAiPanel,
     startAgentFlow,
@@ -63,41 +59,11 @@ export function DemoToolbar() {
           </button>
         ))}
       </div>
-      <div className="flex items-center gap-2">
-        {aiPanel !== 'closed' ? (
-          <span className="hidden text-[11px] text-ink-500 sm:inline">
-            AI panel: {aiPanel}
-          </span>
-        ) : null}
-        <div className="flex rounded-[10px] bg-paper p-0.5">
-          <button
-            type="button"
-            className="rounded-[8px] p-1.5"
-            style={
-              presentationMode === 'desktop'
-                ? { background: 'var(--color-card-raised)', boxShadow: 'var(--shadow-action)' }
-                : undefined
-            }
-            onClick={() => setPresentationMode('desktop')}
-            aria-label="Desktop layout"
-          >
-            <Monitor size={16} className="text-ink-600" />
-          </button>
-          <button
-            type="button"
-            className="rounded-[8px] p-1.5"
-            style={
-              presentationMode === 'mobile'
-                ? { background: 'var(--color-card-raised)', boxShadow: 'var(--shadow-action)' }
-                : undefined
-            }
-            onClick={() => setPresentationMode('mobile')}
-            aria-label="Mobile presentation"
-          >
-            <DeviceMobile size={16} className="text-ink-600" />
-          </button>
-        </div>
-      </div>
+      {aiPanel !== 'closed' ? (
+        <span className="hidden text-[11px] text-ink-500 sm:inline">
+          AI panel: {aiPanel}
+        </span>
+      ) : null}
     </div>
   );
 }

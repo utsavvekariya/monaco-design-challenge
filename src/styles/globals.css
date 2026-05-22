@@ -1085,11 +1085,268 @@
     flex: 1;
   }
 
+  .note-detail-scroll {
+    scrollbar-gutter: stable;
+    padding-bottom: 6rem;
+  }
+
+  .note-detail-body {
+    min-height: 12rem;
+  }
+
+  .note-body-editor-wrap {
+    width: 100%;
+  }
+
+  .note-body-editor-wrap .tiptap,
+  .note-tiptap-editor {
+    outline: none;
+    min-height: 12rem;
+  }
+
+  .note-body-editor-wrap .tiptap:focus-visible {
+    outline: none;
+  }
+
+  .note-body-editor-wrap .tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: var(--color-ink-400);
+    pointer-events: none;
+    height: 0;
+  }
+
+  .note-body-editor-wrap .tiptap ul[data-type='taskList'] {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .note-body-editor-wrap .tiptap ul[data-type='taskList'] li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .note-body-editor-wrap .tiptap ul[data-type='taskList'] li > label {
+    flex: 0 0 auto;
+    margin-top: 0.2rem;
+    user-select: none;
+  }
+
+  .note-body-editor-wrap .tiptap ul[data-type='taskList'] li > label input {
+    accent-color: var(--color-brand-500);
+  }
+
+  .note-body-editor-wrap .tiptap ul[data-type='taskList'] li > div {
+    flex: 1 1 auto;
+  }
+
+  .note-detail-content {
+    box-sizing: border-box;
+  }
+
+  .note-title-editor {
+    padding: 0;
+    border: none;
+  }
+
   .note-title-editor:focus,
   .note-body-editor:focus {
     outline: none;
     border-radius: 6px;
     box-shadow: 0 0 0 3px rgba(1, 94, 254, 0.1);
+  }
+
+  .note-markdown {
+    font-size: 15px;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-700);
+  }
+
+  .note-markdown > *:first-child {
+    margin-top: 0;
+  }
+
+  .note-markdown > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .note-markdown h1,
+  .note-markdown h2,
+  .note-markdown h3,
+  .note-markdown h4,
+  .note-markdown h5,
+  .note-markdown h6 {
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--color-ink-900);
+  }
+
+  .note-markdown h1 {
+    margin: 0 0 0.75rem;
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  .note-markdown h2 {
+    margin: 1.25rem 0 0.5rem;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .note-markdown h3 {
+    margin: 1rem 0 0.375rem;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .note-markdown h4 {
+    margin: 0.875rem 0 0.25rem;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .note-markdown h5 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--color-ink-800);
+  }
+
+  .note-markdown h6 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--color-ink-700);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .note-markdown p {
+    margin: 0 0 0.75rem;
+  }
+
+  .note-markdown ul,
+  .note-markdown ol {
+    margin: 0 0 0.75rem;
+    padding-left: 1.35rem;
+  }
+
+  .note-markdown li {
+    margin: 0.25rem 0;
+  }
+
+  .note-markdown li > ul,
+  .note-markdown li > ol {
+    margin: 0.25rem 0 0;
+  }
+
+  .note-markdown li::marker {
+    color: var(--color-ink-400);
+  }
+
+  .note-markdown ul.contains-task-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .note-markdown .task-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0.35rem 0;
+  }
+
+  .note-markdown .task-list-item input {
+    margin-top: 0.2rem;
+    accent-color: var(--color-brand-500);
+  }
+
+  .note-markdown strong {
+    font-weight: 600;
+    color: var(--color-ink-800);
+  }
+
+  .note-markdown em {
+    font-style: italic;
+  }
+
+  .note-markdown del {
+    text-decoration: line-through;
+    color: var(--color-ink-500);
+  }
+
+  .note-markdown-table-wrap {
+    margin: 0 0 0.75rem;
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--color-hairline-soft);
+  }
+
+  .note-markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .note-markdown th,
+  .note-markdown td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-hairline-soft);
+  }
+
+  .note-markdown th {
+    font-weight: 500;
+    color: var(--color-ink-800);
+    background: var(--color-paper-deep);
+  }
+
+  .note-markdown tr:last-child td {
+    border-bottom: none;
+  }
+
+  .note-markdown code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: var(--color-paper-deep);
+    color: var(--color-ink-800);
+  }
+
+  .note-markdown pre {
+    margin: 0 0 0.75rem;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    border-radius: 10px;
+    background: var(--color-paper-deep);
+  }
+
+  .note-markdown pre code {
+    padding: 0;
+    background: transparent;
+  }
+
+  .note-markdown blockquote {
+    margin: 0 0 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-hairline);
+    color: var(--color-ink-600);
+  }
+
+  .note-markdown a {
+    color: var(--color-brand-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .note-markdown hr {
+    margin: 1.25rem 0;
+    border: none;
+    border-top: 1px solid var(--color-hairline-soft);
   }
 
   .ai-panel {
@@ -1164,6 +1421,152 @@
     box-shadow:
       var(--shadow-quiet),
       0 0 0 3px rgba(1, 94, 254, 0.12);
+  }
+
+  .slash-command-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 6px;
+    border-radius: 14px;
+    background: var(--color-card-raised);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-hairline-soft);
+    animation: slash-menu-in 160ms var(--ease-out) both;
+  }
+
+  .slash-command-menu-dark {
+    background: rgba(28, 26, 22, 0.96);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 16px 48px -8px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  }
+
+  @keyframes slash-menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .slash-command-heading {
+    padding: 6px 10px 4px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+
+  .slash-command-menu-dark .slash-command-heading {
+    color: rgba(253, 252, 248, 0.45);
+  }
+
+  .slash-command-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .slash-command-item {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 120ms var(--ease-out);
+  }
+
+  .slash-command-item:hover,
+  .slash-command-item-active {
+    background: var(--color-wash);
+  }
+
+  .slash-command-menu-dark .slash-command-item:hover,
+  .slash-command-menu-dark .slash-command-item-active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .slash-command-icon {
+    display: flex;
+    height: 28px;
+    width: 28px;
+    shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--color-brand-50);
+    color: var(--color-brand-600);
+  }
+
+  .slash-command-menu-dark .slash-command-icon {
+    background: rgba(1, 94, 254, 0.18);
+    color: rgba(147, 197, 255, 0.95);
+  }
+
+  .slash-command-copy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .slash-command-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink-900);
+  }
+
+  .slash-command-menu-dark .slash-command-label {
+    color: rgba(253, 252, 248, 0.94);
+  }
+
+  .slash-command-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-brand-600);
+  }
+
+  .slash-command-menu-dark .slash-command-name {
+    color: rgba(147, 197, 255, 0.95);
+  }
+
+  .slash-command-desc {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--color-ink-500);
+  }
+
+  .slash-command-menu-dark .slash-command-desc {
+    color: rgba(253, 252, 248, 0.5);
+  }
+
+  .slash-command-empty {
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--color-ink-500);
+  }
+
+  .slash-command-menu-dark .slash-command-empty {
+    color: rgba(253, 252, 248, 0.45);
   }
 
   /* Dark composer — scoped to the AI panel so it always wins over light shell tokens. */

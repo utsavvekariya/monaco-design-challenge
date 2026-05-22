@@ -25,7 +25,7 @@ export const notes: Note[] = [
     folderId: 'work',
     title: 'Product sync — Q2 roadmap',
     preview: 'Agreed to ship smart folders by May. Design review Thursday.',
-    body: `Product sync — March 18\n\n• Smart folders ship by May 12\n• Design review with Lena — Thursday 2pm\n• Open question: should AI summaries appear inline or in a side panel?\n• Action: send recap to eng@recall.app before EOD`,
+    body: `## Product sync — March 18\n\n- Smart folders ship by May 12\n- Design review with Lena — Thursday 2pm\n- Open question: should AI summaries appear inline or in a side panel?\n- **Action:** send recap to eng@recall.app before EOD`,
     updatedAt: 'Today, 9:14 AM',
     pinned: true,
     tags: ['meetings'],
@@ -36,7 +36,7 @@ export const notes: Note[] = [
     folderId: 'work',
     title: 'Job search tracker',
     preview: 'Applied to Meridian, Lattice, and Northwind. Follow-ups due next week.',
-    body: `Job search — running log\n\nMeridian Health — applied Mar 2, recruiter call Mar 14 (went well)\nLattice — portfolio sent, waiting on design exercise\nNorthwind — referral from Priya, intro email drafted but not sent\n\nThemes from interviews: systems thinking, calm AI UX, subscription value\n\nNext: thank-you note to Marcus at Meridian within 48h`,
+    body: `## Job search — running log\n\n### Meridian Health\n- Applied Mar 2, recruiter call Mar 14 (went well)\n\n### Lattice\n- Portfolio sent, waiting on design exercise\n\n### Northwind\n- Referral from Priya, intro email drafted but not sent\n\n**Themes from interviews:** systems thinking, calm AI UX, subscription value\n\n**Next:** thank-you note to Marcus at Meridian within 48h`,
     updatedAt: 'Yesterday',
     tags: ['career'],
     snippet: '4 companies · 2 pending follow-ups',
@@ -46,7 +46,7 @@ export const notes: Note[] = [
     folderId: 'work',
     title: 'Networking night — contacts',
     preview: 'Met Marcus Chen (Meridian), Sam Ortiz (Lattice). Booth 14 near the espresso bar.',
-    body: `Design Leaders networking — March 8\n\nMarcus Chen — VP Product, Meridian Health\n• Loved the "notes as context" framing\n• Email: marcus.chen@meridianhealth.io\n• Said follow up after the roadmap post\n\nSam Ortiz — Design lead, Lattice\n• Interested in shared study notes use case\n\nReminder: send Marcus a concise follow-up referencing our conversation about ambient AI.`,
+    body: `## Design Leaders networking — March 8\n\n### Marcus Chen — VP Product, Meridian Health\n- Loved the "notes as context" framing\n- Email: marcus.chen@meridianhealth.io\n- Said follow up after the roadmap post\n\n### Sam Ortiz — Design lead, Lattice\n- Interested in shared study notes use case\n\n**Reminder:** send Marcus a concise follow-up referencing our conversation about ambient AI.`,
     updatedAt: 'Mar 8',
     tags: ['events', 'contacts'],
     snippet: '2 contacts · follow-up suggested',
@@ -56,7 +56,7 @@ export const notes: Note[] = [
     folderId: 'school',
     title: 'HCI lecture — memory & retrieval',
     preview: 'Episodic vs semantic memory. Cues beat search when labels are weak.',
-    body: `HCI 442 — Lecture 7\n\nEpisodic memory = time-stamped events; semantic = facts without context.\n\nDesign implication: notes apps should surface *when* and *why*, not just keywords.\n\nReading: "The Design of Everyday Memory" — ch. 4–5\n\nStudy group Saturday 10am — bring printed flashcards`,
+    body: `## HCI 442 — Lecture 7\n\nEpisodic memory = time-stamped events; semantic = facts without context.\n\n**Design implication:** notes apps should surface *when* and *why*, not just keywords.\n\n**Reading:** "The Design of Everyday Memory" — ch. 4–5\n\n**Study group:** Saturday 10am — bring printed flashcards`,
     updatedAt: 'Mar 12',
     tags: ['class'],
   },
@@ -65,7 +65,7 @@ export const notes: Note[] = [
     folderId: 'school',
     title: 'Group project — API milestone',
     preview: 'Backend due Friday. Frontend needs empty states for search.',
-    body: `CS capstone — Sprint 3\n\nBackend: pagination + auth refresh by Friday\nFrontend: empty states for zero-result search\n\nBlockers: waiting on schema from Jamie\n\nDemo dry-run: Mar 22, 4pm`,
+    body: `## CS capstone — Sprint 3\n\n- **Backend:** pagination + auth refresh by Friday\n- **Frontend:** empty states for zero-result search\n\n### Blockers\n- Waiting on schema from Jamie\n\n**Demo dry-run:** Mar 22, 4pm`,
     updatedAt: 'Mar 11',
     tags: ['group'],
   },
@@ -74,7 +74,7 @@ export const notes: Note[] = [
     folderId: 'personal',
     title: 'Apartment move checklist',
     preview: 'Book movers Apr 2. Update utilities by Mar 28.',
-    body: `Move — April 5 target\n\n☐ Book movers (get 3 quotes)\n☐ Utilities transfer — electric + internet\n☐ Change address: bank, health, voter reg\n☐ Measure nook for desk — 42" max width`,
+    body: `## Move — April 5 target\n\n- [ ] Book movers (get 3 quotes)\n- [ ] Utilities transfer — electric + internet\n- [ ] Change address: bank, health, voter reg\n- [ ] Measure nook for desk — 42" max width`,
     updatedAt: 'Mar 10',
     tags: ['life'],
   },
@@ -83,7 +83,7 @@ export const notes: Note[] = [
     folderId: 'shared',
     title: 'Family trip — Portugal',
     preview: 'Flights booked. Mom wants vegetarian restaurants in Lisbon.',
-    body: `Portugal — June 14–24\n\nFlights: arrive Lisbon 10:40am\n\nMom — vegetarian spots near Alfama\nDad — golf day trip options (Sat only)\n\nShared packing list in Notes → link calendar holds`,
+    body: `## Portugal — June 14–24\n\n**Flights:** arrive Lisbon 10:40am\n\n### Mom\n- Vegetarian spots near Alfama\n\n### Dad\n- Golf day trip options (Sat only)\n\nShared packing list in Notes → link calendar holds`,
     updatedAt: 'Mar 6',
     tags: ['family'],
   },
@@ -92,7 +92,7 @@ export const notes: Note[] = [
     folderId: 'work',
     title: '1:1 with Jordan — feedback',
     preview: 'Ask for clearer promo criteria. Mention interest in AI features squad.',
-    body: `1:1 prep — Jordan\n\n• Promo criteria — want measurable examples\n• Interest in AI features squad for H2\n• Share prototype link after this review cycle`,
+    body: `## 1:1 prep — Jordan\n\n- Promo criteria — want measurable examples\n- Interest in AI features squad for H2\n- Share prototype link after this review cycle`,
     updatedAt: 'Mar 5',
     tags: ['1:1'],
   },
@@ -101,7 +101,7 @@ export const notes: Note[] = [
     folderId: 'personal',
     title: 'Therapy session notes',
     preview: 'Boundary practice at work. Journal prompt: what drained energy this week?',
-    body: `Session — Mar 4\n\nThemes: saying no to last-minute requests, energy audit\n\nHomework: one boundary experiment per day\n\nJournal prompt: "What drained energy this week — and what restored it?"`,
+    body: `## Session — Mar 4\n\n**Themes:** saying no to last-minute requests, energy audit\n\n**Homework:** one boundary experiment per day\n\n> Journal prompt: "What drained energy this week — and what restored it?"`,
     updatedAt: 'Mar 4',
     tags: ['wellness'],
   },
@@ -110,7 +110,7 @@ export const notes: Note[] = [
     folderId: 'favorites',
     title: 'Recall product principles',
     preview: 'AI additive, not overwhelming. Default note-taking stays simple.',
-    body: `Recall — product principles\n\n1. Default experience = fast capture, zero config\n2. AI is discoverable but never blocks writing\n3. Every suggestion links to source notes\n4. Agent mode only when the task spans tools\n5. Premium = memory + action, not generic chat`,
+    body: `## Recall — product principles\n\n1. Default experience = fast capture, zero config\n2. AI is discoverable but never blocks writing\n3. Every suggestion links to source notes\n4. Agent mode only when the task spans tools\n5. Premium = memory + action, not generic chat`,
     updatedAt: 'Feb 28',
     pinned: true,
     tags: ['product'],
@@ -151,9 +151,57 @@ export const smartSuggestions: SmartSuggestion[] = [
 
 export const composerPlaceholders = [
   'Ask across all notes…',
+  'Type / for commands',
   'Summarize my job search notes',
   'Find a contact and draft a follow-up',
   'Pull action items from this note',
+];
+
+export interface SlashCommand {
+  id: string;
+  command: string;
+  label: string;
+  description: string;
+  prompt: string;
+}
+
+export const slashCommands: SlashCommand[] = [
+  {
+    id: 'summarize',
+    command: 'summarize',
+    label: 'Summarize notes',
+    description: 'Pull themes, deadlines, and open loops from related notes',
+    prompt: 'Summarize everything I wrote about my job search',
+  },
+  {
+    id: 'follow-up',
+    command: 'follow-up',
+    label: 'Draft follow-up',
+    description: 'Find a contact from your notes and draft a warm email',
+    prompt:
+      'Find the person I met at the networking event and draft a follow-up email',
+  },
+  {
+    id: 'tasks',
+    command: 'tasks',
+    label: 'Extract tasks',
+    description: 'Turn scattered checkboxes and bullets into a task list',
+    prompt: 'Turn these scattered notes into a task list',
+  },
+  {
+    id: 'recall',
+    command: 'recall',
+    label: 'Recall project context',
+    description: 'Surface decisions and dates from a project thread',
+    prompt: 'Remind me what I said about the Q2 roadmap project last month',
+  },
+  {
+    id: 'actions',
+    command: 'actions',
+    label: 'Pull action items',
+    description: 'Extract next steps from the current note',
+    prompt: 'Pull action items from this note',
+  },
 ];
 
 export const chatScenarios: Record<

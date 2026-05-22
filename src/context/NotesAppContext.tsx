@@ -35,6 +35,7 @@ interface NotesAppContextValue {
   selectedNoteId: string | null;
   setSelectedNoteId: (id: string | null) => void;
   selectNote: (id: string) => void;
+  createNote: () => void;
   closeNoteDetail: () => void;
   noteDetailOpen: boolean;
   filteredNotes: Note[];
@@ -50,8 +51,6 @@ interface NotesAppContextValue {
   startAgentFlow: () => void;
   mobileSheet: 'notes' | 'detail' | 'ai' | null;
   setMobileSheet: (sheet: 'notes' | 'detail' | 'ai' | null) => void;
-  presentationMode: 'desktop' | 'mobile';
-  setPresentationMode: (mode: 'desktop' | 'mobile') => void;
   sidebarCollapsed: boolean;
   toggleSidebar: () => void;
 }
@@ -69,9 +68,6 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
   const [isThinking, setIsThinking] = useState(false);
   const [activeScenario, setActiveScenario] = useState<ChatScenarioId | null>(null);
   const [mobileSheet, setMobileSheet] = useState<'notes' | 'detail' | 'ai' | null>(null);
-  const [presentationMode, setPresentationMode] = useState<'desktop' | 'mobile'>(
-    'desktop',
-  );
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [noteDetailOpen, setNoteDetailOpen] = useState(false);
 
@@ -79,23 +75,44 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
     setSidebarCollapsed((prev) => !prev);
   }, []);
 
-  const selectNote = useCallback(
-    (id: string) => {
-      setSelectedNoteId(id);
-      setNoteDetailOpen(true);
-      if (presentationMode === 'mobile') {
-        setMobileSheet('detail');
-      }
-    },
-    [presentationMode],
-  );
+  const selectNote = useCallback((id: string) => {
+    setSelectedNoteId(id);
+    setNoteDetailOpen(true);
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      setMobileSheet('detail');
+    }
+  }, []);
+
+  const createNote = useCallback(() => {
+    const folderForNote: FolderId =
+      selectedFolderId === 'all' || selectedFolderId === 'favorites'
+        ? 'personal'
+        : selectedFolderId;
+
+    const id = `n-${Date.now()}`;
+    const newNote: Note = {
+      id,
+      folderId: folderForNote,
+      title: '',
+      preview: '',
+      body: '',
+      updatedAt: 'Just now',
+    };
+
+    setNotes((prev) => [newNote, ...prev]);
+    setSelectedNoteId(id);
+    setNoteDetailOpen(true);
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      setMobileSheet('detail');
+    }
+  }, [selectedFolderId]);
 
   const closeNoteDetail = useCallback(() => {
     setNoteDetailOpen(false);
-    if (presentationMode === 'mobile') {
+    if (window.matchMedia('(max-width: 767px)').matches) {
       setMobileSheet(null);
     }
-  }, [presentationMode]);
+  }, []);
 
   const composerPlaceholder =
     composerPlaceholders[0] ?? 'Ask across all notes…';
@@ -235,6 +252,7 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       selectedNoteId,
       setSelectedNoteId,
       selectNote,
+      createNote,
       closeNoteDetail,
       noteDetailOpen,
       filteredNotes,
@@ -250,8 +268,6 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       startAgentFlow,
       mobileSheet,
       setMobileSheet,
-      presentationMode,
-      setPresentationMode,
       sidebarCollapsed,
       toggleSidebar,
     }),
@@ -264,6 +280,7 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       selectedFolderId,
       selectedNoteId,
       selectNote,
+      createNote,
       closeNoteDetail,
       noteDetailOpen,
       filteredNotes,
@@ -277,7 +294,6 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       activeScenario,
       startAgentFlow,
       mobileSheet,
-      presentationMode,
       sidebarCollapsed,
       toggleSidebar,
     ],

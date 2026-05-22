@@ -11,15 +11,14 @@ import { MobileNav } from '@/components/notes/MobileNav';
 import { useNotesApp } from '@/context/NotesAppContext';
 
 function MainCanvas() {
-  const { view, aiPanel, selectedNote, presentationMode, noteDetailOpen, closeNoteDetail } =
+  const { view, aiPanel, selectedNote, noteDetailOpen, closeNoteDetail } =
     useNotesApp();
   const dimmed = aiPanel === 'peek' || aiPanel === 'full';
   const showDetailFullscreen =
     noteDetailOpen &&
     selectedNote != null &&
     view !== 'classic' &&
-    view !== 'agent' &&
-    presentationMode === 'desktop';
+    view !== 'agent';
 
   if (view === 'classic') {
     return (
@@ -72,9 +71,7 @@ function MainCanvas() {
 }
 
 function MobileSheets() {
-  const { mobileSheet, setMobileSheet, presentationMode, closeNoteDetail } = useNotesApp();
-
-  if (presentationMode !== 'mobile') return null;
+  const { mobileSheet, setMobileSheet, closeNoteDetail } = useNotesApp();
 
   return (
     <>
@@ -119,11 +116,9 @@ function MobileSheets() {
 }
 
 export function AppShell() {
-  const { view, aiPanel, presentationMode, noteDetailOpen } = useNotesApp();
-  const hideComposer =
-    noteDetailOpen && view !== 'classic' && view !== 'agent';
+  const { view, aiPanel } = useNotesApp();
 
-  const inner = (
+  return (
     <div className="notes-shell grain">
       <Sidebar />
       <div className="notes-main flex min-w-0 flex-1 flex-col">
@@ -132,7 +127,7 @@ export function AppShell() {
           <MainCanvas />
           {view === 'agent' ? <AgentPanel /> : null}
           {view !== 'agent' ? <AIChatPanel /> : null}
-          {view !== 'agent' && aiPanel === 'closed' && !hideComposer ? (
+          {view !== 'agent' && aiPanel === 'closed' ? (
             <AIComposer floating />
           ) : null}
           <MobileSheets />
@@ -141,20 +136,4 @@ export function AppShell() {
       </div>
     </div>
   );
-
-  if (presentationMode === 'mobile') {
-    return (
-      <div className="mobile-mock-stage">
-        <div className="mobile-mock-device">
-          <div className="mobile-mock-bezel">
-            <div className="mobile-mock-island" aria-hidden />
-            <div className="mobile-mock-screen">{inner}</div>
-            <div className="mobile-mock-home-bar" aria-hidden />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return inner;
 }

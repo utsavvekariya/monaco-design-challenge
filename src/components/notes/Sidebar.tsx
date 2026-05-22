@@ -36,7 +36,7 @@ export function Sidebar() {
     setView,
     sendMessage,
     setSelectedNoteId,
-    selectNote,
+    createNote,
     sidebarCollapsed,
     toggleSidebar,
   } = useNotesApp();
@@ -82,7 +82,7 @@ export function Sidebar() {
       <button
         type="button"
         className="btn-primary sidebar-new-note"
-        onClick={() => selectNote('n1')}
+        onClick={createNote}
         title="New note"
       >
         <Note size={16} weight="bold" />
