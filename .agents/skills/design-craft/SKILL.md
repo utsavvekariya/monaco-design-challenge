@@ -675,6 +675,9 @@ Designing dark mode by inverting light mode produces neither. The references mak
 
 When asked to do "dark mode", design from scratch using dark-mode rules. Do not run a `--color-bg: invert()`.
 
+> **DARK MODE COLOR RELIABILITY — NON-NEGOTIABLE**
+> Dark mode colors break silently all the time. Before shipping any dark UI: (1) verify every text color has sufficient contrast against its actual background — opacity-based creams like `rgba(220,232,228,0.5)` can wash out on slightly lighter surfaces than expected; (2) never use a light-mode color variable inside a dark-mode component — always resolve to the dark token explicitly; (3) check that shadow colors (`rgba(0,0,0,…)`) are still visible on the dark surface — brand-tinted shadows tuned for cream paper become invisible on `#0a0f0e`; (4) confirm that border values (`#292d2c`) are actually distinct from the background (`#0a0f0e`) — low-contrast borders disappear on dark; (5) test the full surface stack (Background → Subtle/Sidebar → Elevated) in isolation: each step must be visually readable without relying on a border. If dark mode looks broken, the fix is almost always a missing surface step or a light-mode color token that leaked in.
+
 ## Layout & Composition
 
 ### The hero pattern (landing / marketing)
