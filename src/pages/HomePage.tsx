@@ -1,5 +1,12 @@
+import { AppShell } from '@/components/notes/AppShell';
+import { NotesAppProvider } from '@/context/NotesAppContext';
+
 export function HomePage() {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-paper" />
+    <div className="h-full min-h-dvh">
+      <NotesAppProvider>
+        <AppShell />
+      </NotesAppProvider>
+    </div>
   );
 }
