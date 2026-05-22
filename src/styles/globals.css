@@ -1,0 +1,952 @@
+@import 'tailwindcss';
+
+/*
+ * Direction — "Warm cream paper, ink-deep type, electric-blue as a light source.
+ * A freelancer's ledger that reads like a literary journal."
+ *
+ * Surfaces step DOWN to chrome (Antimetal/Notion move): canvas is paper,
+ * sidebar is the desk underneath. Hairline borders are dropped in favor of
+ * surface stepping. Accent is a single hue (electric blue) used decisively
+ * on action surfaces, focus, and as a tint inside shadows.
+ */
+
+@theme {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-serif:
+    'Instrument Serif', 'GT Sectra', 'Tiempos Headline', Georgia, serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    'Liberation Mono', monospace;
+
+  /* Surface stack — paper canvas, deeper chrome, raised cards. */
+  --color-paper: #f7f6f2;
+  --color-paper-deep: #f2f1ec;
+  --color-card: #fdfcf8;
+  --color-card-raised: #ffffff;
+  --color-hairline: #e6e4dd;
+  --color-hairline-soft: rgba(20, 18, 14, 0.06);
+
+  /* Interaction washes — hover fills, inset wells. */
+  --color-wash: rgba(20, 18, 14, 0.04);
+  --color-wash-strong: rgba(20, 18, 14, 0.08);
+  --color-wash-muted: rgba(20, 18, 14, 0.06);
+  --color-secondary-hover: #fafaf6;
+
+  /* Inverted surfaces — user bubbles, selected pills, send buttons. */
+  --color-inverted: #1a1814;
+  --color-inverted-fg: #fdfcf8;
+
+  /* Ink — warm-tinted neutrals, never #000. */
+  --color-ink-900: #1a1814;
+  --color-ink-800: #2a2620;
+  --color-ink-700: #3a3530;
+  --color-ink-600: #57524a;
+  --color-ink-500: #7a7268;
+  --color-ink-400: #a39b8e;
+  --color-ink-300: #c9c2b6;
+  --color-ink-200: #ddd8cd;
+
+  /* Brand — electric blue acting as light source. */
+  --color-brand-50: #eff4f9;
+  --color-brand-100: #c0d5e9;
+  --color-brand-200: #8db7da;
+  --color-brand-300: #7096bd;
+  --color-brand-400: #59779b;
+  --color-brand-500: #015efe;
+  --color-brand-600: #0046cf;
+  --color-brand-700: #0033a0;
+  --color-brand-shade: #131d8e;
+  --color-brand-glow: rgba(1, 94, 254, 0.18);
+
+  /* Semantic status. */
+  --color-good: #2f8a52;
+  --color-good-bg: #e6f1eb;
+  --color-warn: #b87a1a;
+  --color-warn-bg: #f5ecd9;
+  --color-danger: #b9402e;
+  --color-danger-bg: #f5e2dd;
+
+  /* Motion — strong custom curves; built-in CSS easings lack punch. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Shadow stacks — use via Tailwind: shadow-panel, shadow-card, shadow-action, shadow-quiet */
+  --shadow-panel:
+    0 1px 3px 0 rgb(12 38 77 / 0.035), 0 2px 8px -2px rgb(20 18 14 / 0.04);
+  --shadow-card:
+    0 4px 14px -2px rgb(12 38 77 / 0.04), 0 2px 6px -1px rgb(12 38 77 / 0.03);
+  --shadow-quiet:
+    0 1px 3px 0 rgb(20 18 14 / 0.05), 0 2px 6px -2px rgb(20 18 14 / 0.035);
+  --shadow-action:
+    0 0 0 1px rgb(20 18 14 / 0.05), 0 1px 2px 0 rgb(12 38 77 / 0.03),
+    0 1px 1px 0 rgb(12 38 77 / 0.025);
+  --shadow-popover:
+    0 1px 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(1, 94, 254, 0.08),
+    0 16px 40px 0 rgba(12, 38, 77, 0.08);
+  --shadow-press: inset 0 -2px 10px 3px rgba(0, 0, 0, 0.1);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Dark studio (Sazabi-inspired) — not a light-mode inversion.
+ * Surfaces step down; cream ink uses opacity; brand glows on action.
+ */
+.dark {
+  --color-paper: #0a0f0e;
+  --color-paper-deep: #121716;
+  --color-card: #1a1e1d;
+  --color-card-raised: #1d201f;
+  --color-hairline: #292d2c;
+  --color-hairline-soft: rgba(255, 255, 255, 0.06);
+
+  --color-wash: rgba(223, 229, 227, 0.05);
+  --color-wash-strong: rgba(223, 229, 227, 0.08);
+  --color-wash-muted: rgba(223, 229, 227, 0.06);
+  --color-secondary-hover: rgba(223, 229, 227, 0.06);
+
+  --color-inverted: #015efe;
+  --color-inverted-fg: #eff4f9;
+
+  --color-ink-900: rgba(223, 229, 227, 0.95);
+  --color-ink-800: rgba(223, 229, 227, 0.9);
+  --color-ink-700: rgba(223, 229, 227, 0.8);
+  --color-ink-600: rgba(220, 232, 228, 0.65);
+  --color-ink-500: rgba(220, 232, 228, 0.5);
+  --color-ink-400: rgba(220, 232, 228, 0.35);
+  --color-ink-300: rgba(220, 232, 228, 0.25);
+  --color-ink-200: rgba(220, 232, 228, 0.15);
+
+  --color-brand-50: rgba(1, 94, 254, 0.12);
+  --color-brand-100: rgba(141, 183, 218, 0.2);
+  --color-brand-glow: rgba(1, 94, 254, 0.35);
+
+  --color-good: #5df89d;
+  --color-good-bg: rgba(93, 248, 157, 0.12);
+  --color-warn: #e6a84a;
+  --color-warn-bg: rgba(230, 168, 74, 0.12);
+  --color-danger: #e86554;
+  --color-danger-bg: rgba(232, 101, 84, 0.12);
+
+  --shadow-panel:
+    0 1px 3px 0 rgb(0 0 0 / 0.2), 0 2px 8px -2px rgb(0 0 0 / 0.14);
+  --shadow-card:
+    0 4px 14px -2px rgb(0 0 0 / 0.28), 0 2px 6px -1px rgb(0 0 0 / 0.18);
+  --shadow-quiet:
+    0 1px 3px 0 rgb(0 0 0 / 0.16), 0 2px 6px -2px rgb(0 0 0 / 0.12);
+  --shadow-action:
+    0 0 0 1px rgb(255 255 255 / 0.05), 0 1px 2px 0 rgb(0 0 0 / 0.14),
+    0 1px 1px 0 rgb(0 0 0 / 0.1);
+  --shadow-popover:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 16px 40px 0 rgba(0, 0, 0, 0.45);
+  --shadow-press: inset 0 -2px 10px 3px rgba(0, 0, 0, 0.35);
+}
+
+.dark body {
+  letter-spacing: 0.005em;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'lnum' 1, 'tnum' 1, 'cv11' 1;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-700);
+    font-family: var(--font-sans);
+    font-weight: 460;
+    letter-spacing: -0.01em;
+  }
+
+  /* Numbers everywhere are tabular + lining — a 5-second engineering-rigor move. */
+  .tabular,
+  .font-mono {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-100);
+    color: var(--color-brand-shade);
+  }
+
+  .dark ::selection {
+    color: var(--color-brand-50);
+  }
+}
+
+@layer components {
+  /*
+   * Grain overlay — 3% noise on the page surface. The single move that makes
+   * cream "look like paper" instead of "look like #f7f6f2".
+   */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .dark .grain::after {
+    opacity: 0.03;
+    mix-blend-mode: overlay;
+  }
+
+  /* Card shell — flat fill + Tailwind shadow only (no gradient ring, no border). */
+  .surface-card {
+    background-color: var(--color-card);
+    border-radius: 16px;
+  }
+
+  /* Three-tier status badges — dashed inactive / subtle subtle / filled active. */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 22px;
+    padding: 0 8px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .badge-paid {
+    background: var(--color-good-bg);
+    color: var(--color-good);
+  }
+  .badge-due {
+    background: var(--color-warn-bg);
+    color: var(--color-warn);
+  }
+  .badge-overdue {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+  }
+  .badge-draft {
+    border: 1px dashed var(--color-ink-300);
+    color: var(--color-ink-500);
+    background: transparent;
+  }
+  .badge-active {
+    background: var(--color-brand-500);
+    color: var(--color-brand-50);
+    box-shadow: var(--shadow-press);
+  }
+
+  /* Live status dot — colored core + soft ambient bloom (paint light, not shadow). */
+  .status-dot {
+    position: relative;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: currentColor;
+  }
+  .status-dot::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0.25;
+    filter: blur(3px);
+  }
+
+  /* Sidebar nav row — gentle hover + solid selected fill (no border). */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    color: var(--color-ink-600);
+    font-size: 13.5px;
+    font-weight: 460;
+    letter-spacing: -0.01em;
+    transition:
+      background-color 140ms var(--ease-out),
+      color 140ms var(--ease-out),
+      transform 160ms var(--ease-out);
+    cursor: pointer;
+    user-select: none;
+  }
+  .nav-row:hover {
+    background-color: var(--color-wash);
+    color: var(--color-ink-800);
+  }
+  .nav-row:active {
+    transform: scale(0.985);
+  }
+  .nav-row[data-active='true'] {
+    background-color: var(--color-card-raised);
+    color: var(--color-ink-900);
+    box-shadow:
+      0 0 0 1px rgba(1, 94, 254, 0.08),
+      0 1px 2px 0 rgba(12, 38, 77, 0.05);
+  }
+  .dark .nav-row[data-active='true'] {
+    background-color: rgba(220, 232, 228, 0.12);
+    box-shadow: none;
+  }
+  .nav-row[data-active='true'] .nav-icon {
+    color: var(--color-brand-500);
+  }
+
+  /* Primary button — brand fill, brand-50 ink (not pure white), inner press shadow. */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 10px;
+    background: var(--color-brand-500);
+    color: var(--color-brand-50);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow:
+      var(--shadow-press),
+      0 0 0 1px var(--color-brand-600),
+      0 6px 16px -4px var(--color-brand-glow);
+    transition: transform 160ms var(--ease-out);
+    cursor: pointer;
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+  .dark .btn-primary {
+    box-shadow:
+      var(--shadow-press),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 0 16px 0 var(--color-brand-glow),
+      0 1px 0 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Secondary button — white card on cream, the ring shadow does the work. */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 10px;
+    background: var(--color-card-raised);
+    color: var(--color-ink-700);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-action);
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 140ms var(--ease-out);
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+  }
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  /* Inline code-style identifier (project codes, invoice numbers). */
+  .ident {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--color-ink-600);
+    background: var(--color-wash-muted);
+    border: 1px solid var(--color-hairline-soft);
+    padding: 1px 5px;
+    border-radius: 4px;
+    letter-spacing: 0;
+  }
+
+  /* Section eyebrow — uppercase mono label that sits above titles. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-500);
+  }
+
+  /*
+   * Stagger entrance — children fade + lift, cascading 50ms apart.
+   * Uses @starting-style so React doesn't have to track mounted flags.
+   */
+  .enter-stagger > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 320ms var(--ease-out),
+      transform 320ms var(--ease-out);
+  }
+  @starting-style {
+    .enter-stagger > * {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  .enter-stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .enter-stagger > *:nth-child(2) { transition-delay: 60ms; }
+  .enter-stagger > *:nth-child(3) { transition-delay: 120ms; }
+  .enter-stagger > *:nth-child(4) { transition-delay: 180ms; }
+  .enter-stagger > *:nth-child(5) { transition-delay: 240ms; }
+  .enter-stagger > *:nth-child(6) { transition-delay: 300ms; }
+  .enter-stagger > *:nth-child(7) { transition-delay: 360ms; }
+
+  /* Quiet "live" pulse — only on the active-engagement dot. */
+  .pulse-live {
+    animation: pulse-live 2.6s var(--ease-in-out) infinite;
+  }
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+
+  /* Chart line drawing animation. */
+  .chart-line-draw {
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw-line 1400ms var(--ease-out) 200ms forwards;
+  }
+  @keyframes draw-line {
+    to { stroke-dashoffset: 0; }
+  }
+  .chart-area-fade {
+    opacity: 0;
+    animation: fade-area 800ms var(--ease-out) 1100ms forwards;
+  }
+  @keyframes fade-area {
+    to { opacity: 1; }
+  }
+
+  @keyframes scan {
+    0%, 100% { transform: translateY(-120%); opacity: 0.4; }
+    50% { transform: translateY(220%); opacity: 0.85; }
+  }
+
+  /* Mobile device mock — centers the app in a phone frame on desktop. */
+  .mobile-mock-stage {
+    display: flex;
+    min-height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    background-color: var(--color-paper-deep);
+    background-image: radial-gradient(
+      circle at 50% 0%,
+      rgba(1, 94, 254, 0.06) 0%,
+      transparent 55%
+    );
+  }
+
+  .mobile-mock-device {
+    flex-shrink: 0;
+    padding: 11px;
+    border-radius: 52px;
+    background: linear-gradient(160deg, #3a3530 0%, #1a1814 55%, #12100e 100%);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.07),
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 28px 72px -16px rgba(20, 18, 14, 0.35),
+      0 12px 28px -8px rgba(20, 18, 14, 0.18);
+  }
+
+  .mobile-mock-bezel {
+    position: relative;
+    width: 390px;
+    height: 844px;
+    max-height: calc(100dvh - 5rem);
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: var(--color-paper);
+    isolation: isolate;
+  }
+
+  .mobile-mock-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    z-index: 60;
+    height: 32px;
+    width: 118px;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    background: #0f0e0c;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+  }
+
+  .mobile-mock-screen {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .mobile-mock-screen .home-food-app {
+    padding-top: 52px;
+  }
+
+  .mobile-mock-home-bar {
+    position: absolute;
+    bottom: 9px;
+    left: 50%;
+    z-index: 60;
+    height: 5px;
+    width: 128px;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: rgba(26, 24, 20, 0.22);
+    pointer-events: none;
+  }
+
+  @media (max-height: 920px) {
+    .mobile-mock-device {
+      transform: scale(0.9);
+      transform-origin: center center;
+    }
+  }
+
+  @media (max-height: 780px) {
+    .mobile-mock-device {
+      transform: scale(0.82);
+    }
+  }
+
+  /* Real phones: full-bleed app, no decorative frame. */
+  @media (max-width: 480px) {
+    .mobile-mock-stage {
+      padding: 0;
+      align-items: stretch;
+      background-image: none;
+    }
+
+    .mobile-mock-device {
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      transform: none;
+      width: 100%;
+    }
+
+    .mobile-mock-bezel {
+      width: 100%;
+      height: 100dvh;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .mobile-mock-island,
+    .mobile-mock-home-bar {
+      display: none;
+    }
+
+    .mobile-mock-screen .home-food-app {
+      padding-top: 0;
+    }
+  }
+  /*
+   * Onboarding — calm, generous fields. Tall (52px) so a 70-year-old's thumb
+   * doesn't have to aim. Hairline border idle, brand ring on focus, glow at
+   * 4px to read as warmth (not a notification).
+   */
+  .field-label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--color-ink-500);
+    margin-bottom: 8px;
+  }
+  .field-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: var(--color-card-raised);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 460;
+    letter-spacing: -0.01em;
+    border: 1px solid var(--color-hairline);
+    outline: none;
+    transition:
+      border-color 160ms var(--ease-out),
+      box-shadow 200ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+  }
+  .field-input::placeholder {
+    color: var(--color-ink-400);
+  }
+  .field-input:hover:not(:focus) {
+    border-color: var(--color-ink-300);
+  }
+  .field-input:focus {
+    border-color: var(--color-brand-500);
+    box-shadow:
+      0 0 0 4px rgba(1, 94, 254, 0.12),
+      0 1px 2px 0 rgba(12, 38, 77, 0.04);
+  }
+  .field-input.field-input-mono {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    letter-spacing: 0.04em;
+  }
+  .field-help {
+    font-size: 12px;
+    color: var(--color-ink-500);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* The big primary CTA used at the bottom of every onboarding step. */
+  .btn-primary-lg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 12px;
+    background: var(--color-brand-500);
+    color: var(--color-brand-50);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow:
+      var(--shadow-press),
+      0 0 0 1px var(--color-brand-600),
+      0 8px 22px -6px var(--color-brand-glow);
+    transition:
+      transform 160ms var(--ease-out),
+      box-shadow 200ms var(--ease-out),
+      opacity 160ms var(--ease-out);
+    cursor: pointer;
+  }
+  .btn-primary-lg:hover {
+    box-shadow:
+      var(--shadow-press),
+      0 0 0 1px var(--color-brand-600),
+      0 12px 28px -6px var(--color-brand-glow);
+  }
+  .btn-primary-lg:active {
+    transform: scale(0.985);
+  }
+  .btn-primary-lg:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary-lg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 12px;
+    background: var(--color-card-raised);
+    color: var(--color-ink-800);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-action);
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+    cursor: pointer;
+  }
+  .btn-secondary-lg:hover {
+    background: var(--color-secondary-hover);
+  }
+  .btn-secondary-lg:active {
+    transform: scale(0.985);
+  }
+
+  /* Choice card — used for risk profile, goals, etc. */
+  .choice-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+    padding: 18px;
+    border-radius: 14px;
+    background: var(--color-card-raised);
+    border: 1px solid var(--color-hairline);
+    box-shadow: 0 1px 2px 0 rgba(12, 38, 77, 0.03);
+    transition:
+      border-color 180ms var(--ease-out),
+      box-shadow 200ms var(--ease-out),
+      transform 160ms var(--ease-out),
+      background-color 180ms var(--ease-out);
+    cursor: pointer;
+  }
+  .choice-card:hover {
+    border-color: var(--color-ink-300);
+    transform: translateY(-1px);
+  }
+  .choice-card[data-selected='true'] {
+    border-color: var(--color-brand-500);
+    background: var(--color-brand-50);
+    box-shadow:
+      0 0 0 3px rgba(1, 94, 254, 0.10),
+      0 1px 2px 0 rgba(12, 38, 77, 0.04);
+  }
+  .dark .choice-card[data-selected='true'] {
+    box-shadow:
+      0 0 0 3px rgba(1, 94, 254, 0.18),
+      0 0 16px 0 rgba(1, 94, 254, 0.12);
+  }
+  .choice-card[data-selected='true'] .choice-card-bullet {
+    background: var(--color-brand-500);
+    border-color: var(--color-brand-500);
+  }
+  .choice-card[data-selected='true'] .choice-card-bullet::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .choice-card-bullet {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-ink-300);
+    background: var(--color-paper);
+    margin-top: 2px;
+    position: relative;
+    transition:
+      background-color 180ms var(--ease-out),
+      border-color 180ms var(--ease-out);
+  }
+  .choice-card-bullet::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 9999px;
+    background: var(--color-brand-50);
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      opacity 180ms var(--ease-out),
+      transform 200ms var(--ease-out);
+  }
+
+  /* Phase rail — the stacked step indicator at the top of onboarding. */
+  .phase-rail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .phase-pip {
+    flex: 1;
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--color-ink-200);
+    position: relative;
+    overflow: hidden;
+    transition: background-color 240ms var(--ease-out);
+  }
+  .phase-pip[data-state='done'] {
+    background: var(--color-brand-500);
+  }
+  .phase-pip[data-state='active'] {
+    background: var(--color-ink-200);
+  }
+  .phase-pip[data-state='active']::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--phase-progress, 30%);
+    background: var(--color-brand-500);
+    border-radius: inherit;
+    transition: width 360ms var(--ease-out);
+  }
+
+  /* Trust strip — the "encrypted · SIPC · 256-bit" row that lives under SSN. */
+  .trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--color-wash-muted);
+    border: 1px solid var(--color-hairline-soft);
+    font-size: 12px;
+    color: var(--color-ink-600);
+  }
+  .trust-strip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+  .trust-strip-item svg {
+    color: var(--color-brand-500);
+    flex-shrink: 0;
+  }
+
+  /* Headlines for onboarding — serif so it sounds like a person wrote it. */
+  .display-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    color: var(--color-ink-900);
+    line-height: 1.02;
+  }
+
+  /* Soft step transition — applied to each step body on mount. */
+  .step-enter {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 320ms var(--ease-out),
+      transform 360ms var(--ease-out);
+  }
+  @starting-style {
+    .step-enter {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  /* Page-level dot grid — barely-there texture for the landing hero. */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(20, 18, 14, 0.07) 1px,
+      transparent 0
+    );
+    background-size: 22px 22px;
+  }
+  .dark .dot-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(220, 232, 228, 0.08) 1px,
+      transparent 0
+    );
+  }
+
+  /* Atmospheric glow — a soft blue wash behind the hero word. */
+  .brand-glow-blob {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.5;
+    background: radial-gradient(
+      circle,
+      rgba(1, 94, 254, 0.22) 0%,
+      rgba(1, 94, 254, 0) 70%
+    );
+  }
+  .dark .brand-glow-blob {
+    opacity: 0.35;
+    background: radial-gradient(
+      circle,
+      rgba(1, 94, 254, 0.35) 0%,
+      rgba(1, 94, 254, 0) 70%
+    );
+  }
+
+  /* OTP / SSN single-character input boxes. */
+  .otp-cell {
+    width: 48px;
+    height: 56px;
+    border-radius: 10px;
+    background: var(--color-card-raised);
+    border: 1px solid var(--color-hairline);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-ink-900);
+    letter-spacing: 0;
+    transition:
+      border-color 160ms var(--ease-out),
+      box-shadow 200ms var(--ease-out);
+  }
+  .otp-cell:focus {
+    outline: none;
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 4px rgba(1, 94, 254, 0.12);
+  }
+
+  /* Number ticker — the social proof block on landing. */
+  .ticker-num {
+    font-family: var(--font-serif);
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-ink-900);
+    font-feature-settings: 'lnum' 1, 'tnum' 1;
+  }
+
+  /* Composer limit panel — emerges from composer area (Option B). */
+  .composer-panel-enter {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transform-origin: bottom center;
+    transition:
+      opacity 220ms var(--ease-out),
+      transform 280ms var(--ease-drawer);
+  }
+  @starting-style {
+    .composer-panel-enter {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-stagger > * {
+    transition: opacity 200ms ease;
+    transform: none;
+  }
+  .pulse-live,
+  .chart-line-draw,
+  .chart-area-fade {
+    animation: none;
+  }
+  .chart-line-draw { stroke-dashoffset: 0; }
+  .chart-area-fade { opacity: 1; }
+  .step-enter {
+    transition: opacity 200ms ease;
+    transform: none;
+  }
+}
