@@ -112,7 +112,7 @@ export function AIChatPanel() {
                       }
                       onClick={() => {
                         if (action.label.toLowerCase().includes('agent')) {
-                          startAgentFlow();
+                          startAgentFlow(true);
                         }
                       }}
                     >

@@ -8,7 +8,7 @@ import type {
   SmartSuggestion,
 } from '@/types/notes';
 
-export const APP_NAME = 'Recall';
+export const APP_NAME = 'Apple notes';
 
 export const folders: Folder[] = [
   { id: 'all', label: 'All notes', icon: 'note', count: 24 },

@@ -48,11 +48,13 @@ interface NotesAppContextValue {
   isThinking: boolean;
   sendMessage: (text?: string) => void;
   activeScenario: ChatScenarioId | null;
-  startAgentFlow: () => void;
+  agentWorkflowActive: boolean;
+  startAgentFlow: (withWorkflow?: boolean) => void;
   mobileSheet: 'notes' | 'detail' | 'ai' | null;
   setMobileSheet: (sheet: 'notes' | 'detail' | 'ai' | null) => void;
   sidebarCollapsed: boolean;
   toggleSidebar: () => void;
+  goToAllNotes: () => void;
 }
 
 const NotesAppContext = createContext<NotesAppContextValue | null>(null);
@@ -67,12 +69,23 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isThinking, setIsThinking] = useState(false);
   const [activeScenario, setActiveScenario] = useState<ChatScenarioId | null>(null);
+  const [agentWorkflowActive, setAgentWorkflowActive] = useState(false);
   const [mobileSheet, setMobileSheet] = useState<'notes' | 'detail' | 'ai' | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [noteDetailOpen, setNoteDetailOpen] = useState(false);
 
   const toggleSidebar = useCallback(() => {
     setSidebarCollapsed((prev) => !prev);
+  }, []);
+
+  const goToAllNotes = useCallback(() => {
+    setSelectedFolderId('all');
+    setSelectedNoteId(null);
+    setNoteDetailOpen(false);
+    setView('cards');
+    setAiPanel('closed');
+    setAgentWorkflowActive(false);
+    setMobileSheet(null);
   }, []);
 
   const selectNote = useCallback((id: string) => {
@@ -153,7 +166,7 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
 
   const openComposer = useCallback(() => {
     setAiPanel('peek');
-    setView((v) => (v === 'classic' ? v : 'chat'));
+    setView((v) => (v === 'classic' || v === 'agent' ? v : 'chat'));
     setMobileSheet('ai');
   }, []);
 
@@ -202,7 +215,12 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
         setMessages((prev) => [...prev, defaultAssistantReply(userText)]);
       }
       if (scenario.followUp === 'agent') {
-        window.setTimeout(() => setView('agent'), 1200);
+        window.setTimeout(() => {
+          setView('agent');
+          setAgentWorkflowActive(true);
+          setAiPanel('closed');
+          setMobileSheet(null);
+        }, 1200);
       }
     }, toolMsg ? 1600 : 1100);
   }, [expandAiPanel]);
@@ -212,6 +230,12 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       const content = (text ?? composerValue).trim();
       if (!content) return;
       setComposerValue('');
+
+      if (view === 'agent') {
+        setAgentWorkflowActive(true);
+        return;
+      }
+
       const scenarioId = matchScenario(content);
       if (scenarioId !== 'custom') {
         playScenario(scenarioId, content);
@@ -230,13 +254,14 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
         setMessages((prev) => [...prev, defaultAssistantReply(content)]);
       }, 1200);
     },
-    [composerValue, expandAiPanel, playScenario],
+    [composerValue, expandAiPanel, playScenario, view],
   );
 
-  const startAgentFlow = useCallback(() => {
+  const startAgentFlow = useCallback((withWorkflow = false) => {
     setView('agent');
-    setAiPanel('full');
-    setMobileSheet('ai');
+    setAgentWorkflowActive(withWorkflow);
+    setAiPanel('closed');
+    setMobileSheet(null);
   }, []);
 
   const value = useMemo(
@@ -265,11 +290,13 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       isThinking,
       sendMessage,
       activeScenario,
+      agentWorkflowActive,
       startAgentFlow,
       mobileSheet,
       setMobileSheet,
       sidebarCollapsed,
       toggleSidebar,
+      goToAllNotes,
     }),
     [
       view,
@@ -292,10 +319,12 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       isThinking,
       sendMessage,
       activeScenario,
+      agentWorkflowActive,
       startAgentFlow,
       mobileSheet,
       sidebarCollapsed,
       toggleSidebar,
+      goToAllNotes,
     ],
   );
 

@@ -6,7 +6,7 @@ import { NoteGrid } from '@/components/notes/NoteGrid';
 import { SmartSuggestions } from '@/components/notes/SmartSuggestions';
 import { AIComposer } from '@/components/notes/AIComposer';
 import { AIChatPanel } from '@/components/notes/AIChatPanel';
-import { AgentPanel } from '@/components/notes/AgentPanel';
+import { AgentPage } from '@/components/notes/AgentPage';
 import { MobileNav } from '@/components/notes/MobileNav';
 import { useNotesApp } from '@/context/NotesAppContext';
 
@@ -30,15 +30,7 @@ function MainCanvas() {
   }
 
   if (view === 'agent') {
-    return (
-      <div
-        className="relative flex min-h-0 flex-1 flex-col transition-opacity duration-300"
-        style={{ opacity: 0.35 }}
-      >
-        <SmartSuggestions />
-        <NoteGrid />
-      </div>
-    );
+    return <AgentPage />;
   }
 
   if (showDetailFullscreen) {
@@ -125,7 +117,6 @@ export function AppShell() {
         <DemoToolbar />
         <div className="relative flex min-h-0 flex-1 flex-col">
           <MainCanvas />
-          {view === 'agent' ? <AgentPanel /> : null}
           {view !== 'agent' ? <AIChatPanel /> : null}
           {view !== 'agent' && aiPanel === 'closed' ? (
             <AIComposer floating />

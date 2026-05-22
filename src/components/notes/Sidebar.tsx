@@ -39,6 +39,7 @@ export function Sidebar() {
     createNote,
     sidebarCollapsed,
     toggleSidebar,
+    goToAllNotes,
   } = useNotesApp();
 
   const onFolder = (id: FolderId) => {
@@ -53,7 +54,13 @@ export function Sidebar() {
       aria-expanded={!sidebarCollapsed}
     >
       <div className="sidebar-header">
-        <div className="sidebar-brand">
+        <button
+          type="button"
+          className="sidebar-brand"
+          onClick={goToAllNotes}
+          aria-label={`${APP_NAME} — all notes`}
+          title="All notes"
+        >
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-brand-500 text-brand-50 shadow-action">
             <Notebook size={18} weight="fill" />
           </div>
@@ -63,7 +70,7 @@ export function Sidebar() {
             </p>
             <p className="truncate text-[11px] text-ink-500">Premium · AI memory</p>
           </div>
-        </div>
+        </button>
         <button
           type="button"
           className="sidebar-collapse-btn"
