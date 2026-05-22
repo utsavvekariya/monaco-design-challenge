@@ -6,7 +6,7 @@ import {
 } from '@phosphor-icons/react';
 
 import { AIComposer } from '@/components/notes/AIComposer';
-import { agentEmailDraft, agentSteps } from '@/data/demo';
+import { agentEmailDraft, agentSteps, APP_NAME } from '@/data/demo';
 import { useNotesApp } from '@/context/NotesAppContext';
 
 function AgentWorkflow() {
@@ -20,7 +20,7 @@ function AgentWorkflow() {
           </h2>
         </div>
         <p className="mb-4 text-[13px] leading-relaxed text-ink-600">
-          Recall is drafting a follow-up from your networking note and linking it
+          {APP_NAME} is drafting a follow-up from your networking note and linking it
           to your job search tracker.
         </p>
         <div className="space-y-0">
@@ -98,7 +98,7 @@ export function AgentPage() {
           <div className="agent-page-intro mb-8 max-w-[480px] text-center">
             <p className="text-[11px] font-medium text-brand-500">Agent</p>
             <h1 className="mt-1 text-[28px] font-medium tracking-[-0.03em] text-ink-900 md:text-[32px]">
-              What should Recall do?
+              What should {APP_NAME} do?
             </h1>
             <p className="mt-2 text-[14px] leading-relaxed text-ink-600">
               Run multi-step workflows across your notes — draft emails, schedule
