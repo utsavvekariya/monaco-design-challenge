@@ -952,6 +952,94 @@
     padding: 12px 10px;
     gap: 8px;
     overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 200ms var(--ease-out);
+  }
+
+  .notes-sidebar[data-collapsed='true'] {
+    width: 56px;
+    padding: 12px 6px;
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 0 2px;
+  }
+
+  .notes-sidebar[data-collapsed='true'] .sidebar-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .notes-sidebar[data-collapsed='true'] .sidebar-brand {
+    flex: none;
+    justify-content: center;
+  }
+
+  .sidebar-brand-text {
+    min-width: 0;
+  }
+
+  .notes-sidebar[data-collapsed='true'] .sidebar-brand-text,
+  .notes-sidebar[data-collapsed='true'] .sidebar-section-title,
+  .notes-sidebar[data-collapsed='true'] .sidebar-suggestions,
+  .notes-sidebar[data-collapsed='true'] .sidebar-expand-only {
+    display: none;
+  }
+
+  .sidebar-collapse-btn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    color: var(--color-ink-500);
+    transition:
+      background-color 140ms var(--ease-out),
+      color 140ms var(--ease-out),
+      transform 160ms var(--ease-out);
+    cursor: pointer;
+  }
+
+  .sidebar-collapse-btn:hover {
+    background-color: var(--color-wash);
+    color: var(--color-ink-700);
+  }
+
+  .sidebar-collapse-btn:active {
+    transform: scale(0.94);
+  }
+
+  .sidebar-new-note {
+    margin-top: 4px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .notes-sidebar[data-collapsed='true'] .sidebar-new-note {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin-inline: auto;
+  }
+
+  .notes-sidebar[data-collapsed='true'] .nav-row {
+    justify-content: center;
+    padding: 7px;
   }
 
   .notes-main {
@@ -990,6 +1078,11 @@
     box-shadow:
       0 0 0 2px var(--color-brand-500),
       var(--shadow-card);
+  }
+
+  .note-detail-fullscreen {
+    min-height: 0;
+    flex: 1;
   }
 
   .note-title-editor:focus,
@@ -1149,6 +1242,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .notes-sidebar {
+    transition: none;
+  }
   .enter-stagger > * {
     transition: opacity 200ms ease;
     transform: none;

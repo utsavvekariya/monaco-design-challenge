@@ -49,7 +49,7 @@ export function NoteDetail() {
   }
 
   return (
-    <article className="flex flex-1 flex-col overflow-hidden">
+    <article className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <header className="border-b border-hairline-soft px-8 py-5">
         <div className="flex flex-wrap items-center gap-2 text-ink-500">
           {selectedNote.pinned ? (

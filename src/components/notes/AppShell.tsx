@@ -11,8 +11,15 @@ import { MobileNav } from '@/components/notes/MobileNav';
 import { useNotesApp } from '@/context/NotesAppContext';
 
 function MainCanvas() {
-  const { view, aiPanel } = useNotesApp();
+  const { view, aiPanel, selectedNote, presentationMode, noteDetailOpen, closeNoteDetail } =
+    useNotesApp();
   const dimmed = aiPanel === 'peek' || aiPanel === 'full';
+  const showDetailFullscreen =
+    noteDetailOpen &&
+    selectedNote != null &&
+    view !== 'classic' &&
+    view !== 'agent' &&
+    presentationMode === 'desktop';
 
   if (view === 'classic') {
     return (
@@ -35,6 +42,24 @@ function MainCanvas() {
     );
   }
 
+  if (showDetailFullscreen) {
+    return (
+      <div className="note-detail-fullscreen flex min-h-0 flex-1 flex-col overflow-hidden bg-card">
+        <header className="flex shrink-0 items-center gap-3 border-b border-hairline-soft px-4 py-3">
+          <button
+            type="button"
+            className="rounded-[8px] px-2 py-1 text-[13px] font-medium text-brand-500 transition-colors hover:bg-brand-50"
+            onClick={closeNoteDetail}
+          >
+            Back
+          </button>
+          <p className="text-[13px] font-medium text-ink-800">Note</p>
+        </header>
+        <NoteDetail />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative flex min-h-0 flex-1 flex-col transition-opacity duration-300"
@@ -47,7 +72,7 @@ function MainCanvas() {
 }
 
 function MobileSheets() {
-  const { mobileSheet, setMobileSheet, presentationMode } = useNotesApp();
+  const { mobileSheet, setMobileSheet, presentationMode, closeNoteDetail } = useNotesApp();
 
   if (presentationMode !== 'mobile') return null;
 
@@ -79,7 +104,7 @@ function MobileSheets() {
             <button
               type="button"
               className="text-[13px] text-brand-500"
-              onClick={() => setMobileSheet(null)}
+              onClick={closeNoteDetail}
             >
               Back
             </button>
@@ -94,7 +119,9 @@ function MobileSheets() {
 }
 
 export function AppShell() {
-  const { view, aiPanel, presentationMode } = useNotesApp();
+  const { view, aiPanel, presentationMode, noteDetailOpen } = useNotesApp();
+  const hideComposer =
+    noteDetailOpen && view !== 'classic' && view !== 'agent';
 
   const inner = (
     <div className="notes-shell grain">
@@ -105,7 +132,7 @@ export function AppShell() {
           <MainCanvas />
           {view === 'agent' ? <AgentPanel /> : null}
           {view !== 'agent' ? <AIChatPanel /> : null}
-          {view !== 'agent' && aiPanel === 'closed' ? (
+          {view !== 'agent' && aiPanel === 'closed' && !hideComposer ? (
             <AIComposer floating />
           ) : null}
           <MobileSheets />

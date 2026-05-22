@@ -34,6 +34,9 @@ interface NotesAppContextValue {
   setSelectedFolderId: (id: FolderId) => void;
   selectedNoteId: string | null;
   setSelectedNoteId: (id: string | null) => void;
+  selectNote: (id: string) => void;
+  closeNoteDetail: () => void;
+  noteDetailOpen: boolean;
   filteredNotes: Note[];
   selectedNote: Note | null;
   updateNote: (id: string, updates: Partial<Pick<Note, 'title' | 'body'>>) => void;
@@ -49,6 +52,8 @@ interface NotesAppContextValue {
   setMobileSheet: (sheet: 'notes' | 'detail' | 'ai' | null) => void;
   presentationMode: 'desktop' | 'mobile';
   setPresentationMode: (mode: 'desktop' | 'mobile') => void;
+  sidebarCollapsed: boolean;
+  toggleSidebar: () => void;
 }
 
 const NotesAppContext = createContext<NotesAppContextValue | null>(null);
@@ -67,6 +72,30 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
   const [presentationMode, setPresentationMode] = useState<'desktop' | 'mobile'>(
     'desktop',
   );
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [noteDetailOpen, setNoteDetailOpen] = useState(false);
+
+  const toggleSidebar = useCallback(() => {
+    setSidebarCollapsed((prev) => !prev);
+  }, []);
+
+  const selectNote = useCallback(
+    (id: string) => {
+      setSelectedNoteId(id);
+      setNoteDetailOpen(true);
+      if (presentationMode === 'mobile') {
+        setMobileSheet('detail');
+      }
+    },
+    [presentationMode],
+  );
+
+  const closeNoteDetail = useCallback(() => {
+    setNoteDetailOpen(false);
+    if (presentationMode === 'mobile') {
+      setMobileSheet(null);
+    }
+  }, [presentationMode]);
 
   const composerPlaceholder =
     composerPlaceholders[0] ?? 'Ask across all notes…';
@@ -205,6 +234,9 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       setSelectedFolderId,
       selectedNoteId,
       setSelectedNoteId,
+      selectNote,
+      closeNoteDetail,
+      noteDetailOpen,
       filteredNotes,
       selectedNote,
       updateNote,
@@ -220,6 +252,8 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       setMobileSheet,
       presentationMode,
       setPresentationMode,
+      sidebarCollapsed,
+      toggleSidebar,
     }),
     [
       view,
@@ -229,6 +263,9 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       closeAiPanel,
       selectedFolderId,
       selectedNoteId,
+      selectNote,
+      closeNoteDetail,
+      noteDetailOpen,
       filteredNotes,
       selectedNote,
       updateNote,
@@ -241,6 +278,8 @@ export function NotesAppProvider({ children }: { children: ReactNode }) {
       startAgentFlow,
       mobileSheet,
       presentationMode,
+      sidebarCollapsed,
+      toggleSidebar,
     ],
   );
 

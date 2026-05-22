@@ -37,7 +37,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
     <div
       className={
         floating
-          ? 'absolute bottom-0 left-0 right-0 z-40 px-5 pb-5 pt-2'
+          ? 'pointer-events-none absolute bottom-0 left-0 right-0 z-40 px-5 pb-5 pt-2'
           : isDark
             ? ''
             : 'border-t border-hairline-soft bg-card px-5 py-4'
@@ -46,7 +46,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
       {aiPanel !== 'closed' && floating ? (
         <button
           type="button"
-          className="mb-2 ml-auto flex items-center gap-1 rounded-[8px] px-2 py-1 text-[11px] text-ink-500 hover:bg-wash"
+          className="pointer-events-auto mb-2 ml-auto flex items-center gap-1 rounded-[8px] px-2 py-1 text-[11px] text-ink-500 hover:bg-wash"
           onClick={closeAiPanel}
         >
           <X size={12} />
@@ -54,7 +54,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
         </button>
       ) : null}
       <div
-        className={`composer-shell ${isDark ? 'composer-shell-dark border border-white/10 bg-white/[0.08] shadow-none focus-within:border-brand-500/50 focus-within:shadow-[0_0_0_3px_rgba(1,94,254,0.2)]' : ''} composer-panel-enter`}
+        className={`pointer-events-auto composer-shell ${isDark ? 'composer-shell-dark border border-white/10 bg-white/[0.08] shadow-none focus-within:border-brand-500/50 focus-within:shadow-[0_0_0_3px_rgba(1,94,254,0.2)]' : ''} composer-panel-enter`}
         onFocus={onFocus}
       >
         <Sparkle
@@ -88,7 +88,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
         </button>
       </div>
       {!isDark && aiPanel === 'closed' ? (
-        <p className="mt-2 text-center text-[11px] text-ink-400">
+        <p className="pointer-events-none mt-2 text-center text-[11px] text-ink-400">
           Ask across all notes — summaries, search, and actions
         </p>
       ) : null}

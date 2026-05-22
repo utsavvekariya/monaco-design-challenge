@@ -7,7 +7,7 @@ export function NoteGrid() {
   const {
     filteredNotes,
     selectedNoteId,
-    setSelectedNoteId,
+    selectNote,
     view,
     setView,
   } = useNotesApp();
@@ -52,14 +52,14 @@ export function NoteGrid() {
           />
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-6 pb-28">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 enter-stagger">
           {filteredNotes.map((note) => (
             <NoteCard
               key={note.id}
               note={note}
               selected={selectedNoteId === note.id}
-              onSelect={() => setSelectedNoteId(note.id)}
+              onSelect={() => selectNote(note.id)}
             />
           ))}
         </div>

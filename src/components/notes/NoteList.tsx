@@ -1,7 +1,7 @@
 import { useNotesApp } from '@/context/NotesAppContext';
 
 export function NoteList() {
-  const { filteredNotes, selectedNoteId, setSelectedNoteId } = useNotesApp();
+  const { filteredNotes, selectedNoteId, selectNote } = useNotesApp();
 
   return (
     <div className="flex h-full w-[280px] shrink-0 flex-col border-r border-hairline-soft bg-paper">
@@ -24,7 +24,7 @@ export function NoteList() {
                     }
                   : undefined
               }
-              onClick={() => setSelectedNoteId(note.id)}
+              onClick={() => selectNote(note.id)}
             >
               <p className="truncate text-[14px] font-medium text-ink-900">
                 {note.title}

@@ -28,7 +28,7 @@ export function AIChatPanel() {
     messages,
     isThinking,
     closeAiPanel,
-    setSelectedNoteId,
+    selectNote,
     startAgentFlow,
   } = useNotesApp();
 
@@ -92,7 +92,7 @@ export function AIChatPanel() {
                       key={c.noteId}
                       type="button"
                       className="rounded-[6px] bg-white/10 px-2 py-1 text-[11px] text-white/80 hover:bg-white/15"
-                      onClick={() => setSelectedNoteId(c.noteId)}
+                      onClick={() => selectNote(c.noteId)}
                     >
                       {c.title}
                     </button>
