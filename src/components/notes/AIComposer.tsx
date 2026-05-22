@@ -38,7 +38,9 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
       className={
         floating
           ? 'absolute bottom-0 left-0 right-0 z-40 px-5 pb-5 pt-2'
-          : 'border-t border-hairline-soft bg-card px-5 py-4'
+          : isDark
+            ? ''
+            : 'border-t border-hairline-soft bg-card px-5 py-4'
       }
     >
       {aiPanel !== 'closed' && floating ? (
@@ -52,7 +54,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
         </button>
       ) : null}
       <div
-        className={`composer-shell ${isDark ? 'composer-shell-dark' : ''} composer-panel-enter`}
+        className={`composer-shell ${isDark ? 'composer-shell-dark border border-white/10 bg-white/[0.08] shadow-none focus-within:border-brand-500/50 focus-within:shadow-[0_0_0_3px_rgba(1,94,254,0.2)]' : ''} composer-panel-enter`}
         onFocus={onFocus}
       >
         <Sparkle
@@ -69,7 +71,7 @@ export function AIComposer({ variant = 'light', floating }: AIComposerProps) {
           placeholder={composerPlaceholder}
           className={`min-w-0 flex-1 bg-transparent text-[14px] outline-none ${
             isDark
-              ? 'text-inverted-fg placeholder:text-white/40'
+              ? 'text-inverted-fg placeholder:text-white/45'
               : 'text-ink-900 placeholder:text-ink-400'
           }`}
         />

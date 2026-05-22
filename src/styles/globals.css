@@ -1073,12 +1073,15 @@
       0 0 0 3px rgba(1, 94, 254, 0.12);
   }
 
-  .composer-shell-dark {
+  /* Dark composer — scoped to the AI panel so it always wins over light shell tokens. */
+  .ai-panel .composer-shell,
+  .composer-shell.composer-shell-dark {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: none;
   }
-  .composer-shell-dark:focus-within {
+  .ai-panel .composer-shell:focus-within,
+  .composer-shell.composer-shell-dark:focus-within {
     border-color: rgba(1, 94, 254, 0.5);
     box-shadow: 0 0 0 3px rgba(1, 94, 254, 0.2);
   }
